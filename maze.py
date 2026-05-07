@@ -24,3 +24,15 @@ glOrtho(0,WIDTH,HEIGHT,0,-1,1)
 glMatrixMode(GL_MODELVIEW)
 glLoadIdentity() 
 glClearColor(0.2, 0.2, 0.3, 1.0)
+ 
+  # My wall data structures
+  
+  # north_wall[r][c]= 1----> means  the cell (r,c) has a wall above it. 
+  # north_wall[r][c]= 0----> means  the cell (r,c) doesn't have a wall above it.It is open.
+north_wall = [[1 for c in range(COLS)] for r in range(ROWS)]
+  # east_wall[r][c]= 1----> means  the cell (r,c) has a wall to the right of it. 
+  # east_wall[r][c]= 0----> means  the cell (r,c) doesn't have a wall on the right.It is open.
+east_wall = [[1 for c in range(COLS)] for r in range(ROWS)]
+  # We check if a cell was visited by visited[r][c]== true or false.
+visited = [[False for c in range(COLS)] for r in range(ROWS)]
+
