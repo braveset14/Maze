@@ -55,4 +55,109 @@ def draw_cell(r, c, color):
     glVertex2f(x + CELL_SIZE - padding, y + CELL_SIZE - padding)
     glVertex2f(x + padding, y + CELL_SIZE - padding)
     glEnd()
+ 
+ # Function to  draw the walls.
+def draw_walls():
+    #Draws walls based on north_wall and east_wall arrays
+    glColor3f(1.0, 1.0, 1.0)  
+    glLineWidth(3.0)
+    
+    # Draw NORTH walls
+    for r in range(ROWS):
+        for c in range(COLS):
+            if north_wall[r][c] == 1:
+                x = c * CELL_SIZE
+                y = r * CELL_SIZE
+                glBegin(GL_LINES)
+                glVertex2f(x, y)
+                glVertex2f(x + CELL_SIZE, y)
+                glEnd()
+    
+    # Draw EAST walls
+    for r in range(ROWS):
+        for c in range(COLS):
+            if east_wall[r][c] == 1:
+                x = (c + 1) * CELL_SIZE
+                y = r * CELL_SIZE
+                glBegin(GL_LINES)
+                glVertex2f(x, y)
+                glVertex2f(x, y + CELL_SIZE)
+                glEnd()
+    
+    # Draw LEFT boundary with openings
+    glColor3f(1.0, 1.0, 1.0)
+    glLineWidth(3.0)
+    for r in range(ROWS):
+        y = r * CELL_SIZE
+        if not left_open[r]:
+            glBegin(GL_LINES)
+            glVertex2f(0, y)
+            glVertex2f(0, y + CELL_SIZE)
+            glEnd()
+    
+    # Draw RIGHT boundary with openings
+    for r in range(ROWS):
+        y = r * CELL_SIZE
+        x = WIDTH
+        if not right_open[r]:
+            glBegin(GL_LINES)
+            glVertex2f(x, y)
+            glVertex2f(x, y + CELL_SIZE)
+            glEnd()
+    
+    # Draw BOTTOM boundary
+    glBegin(GL_LINES)
+    glVertex2f(0, HEIGHT)
+    glVertex2f(WIDTH, HEIGHT)
+    glEnd()
 
+ # Function to draw left and right markers.
+def draw_start_end():
+    """Draws special markers for start (left edge) and end (right edge)"""
+    
+    # Find and draw start cell on left edge
+    for r in range(ROWS):
+        if left_open[r]:
+            x = 5
+            y = r * CELL_SIZE + CELL_SIZE // 2
+            glColor3f(0.0, 1.0, 0.0)  # Green
+            glPointSize(8.0)
+            glBegin(GL_POINTS)
+            glVertex2f(x, y)
+            glEnd()
+            
+            # Draw "S"
+            glLineWidth(2.0)
+            glBegin(GL_LINE_STRIP)
+            glVertex2f(x + 2, y - 8)
+            glVertex2f(x + 2, y + 8)
+            glVertex2f(x + 10, y + 8)
+            glVertex2f(x + 10, y)
+            glVertex2f(x + 2, y)
+            glEnd()
+            break
+    
+    # Find and draw end cell on right edge
+    for r in range(ROWS):
+        if right_open[r]:
+            x = WIDTH - 15
+            y = r * CELL_SIZE + CELL_SIZE // 2
+            glColor3f(1.0, 0.0, 0.0)  # Red
+            glPointSize(8.0)
+            glBegin(GL_POINTS)
+            glVertex2f(x, y)
+            glEnd()
+            
+            # Draw "E"
+            glLineWidth(2.0)
+            glBegin(GL_LINE_STRIP)
+            glVertex2f(x - 10, y - 8)
+            glVertex2f(x - 2, y - 8)
+            glVertex2f(x - 2, y + 8)
+            glVertex2f(x - 10, y + 8)
+            glEnd()
+            glBegin(GL_LINES)
+            glVertex2f(x - 10, y)
+            glVertex2f(x - 2, y)
+            glEnd()
+            break
