@@ -44,3 +44,9 @@ Start and end points are randomly placed on the left and right edges respectivel
 
 ```bash
 pip install pygame PyOpenGL PyOpenGL_accelerate
+```
+## Demo Video
+
+Here is a demo of the maze being generated and solved.
+
+[![Watch the video](https://www.loom.com/share/bee5c511b83e486198499f6404519bf0)](https://www.loom.com/share/bee5c511b83e486198499f6404519bf0)
