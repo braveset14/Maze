@@ -35,4 +35,24 @@ north_wall = [[1 for c in range(COLS)] for r in range(ROWS)]
 east_wall = [[1 for c in range(COLS)] for r in range(ROWS)]
   # We check if a cell was visited by visited[r][c]== true or false.
 visited = [[False for c in range(COLS)] for r in range(ROWS)]
+  # An array to hpold solved path.
+solved_path = [] 
+  # Edge openings
+left_open = [False for r in range(ROWS)]
+right_open = [False for r in range(ROWS)]
+
+ ## Function to draw each cell.
+def draw_cell(r, c, color):
+    # Draws a filled square at cell (r,c) with given color.
+    x = c * CELL_SIZE
+    y = r * CELL_SIZE
+    padding = 8
+    
+    glColor3f(color[0], color[1], color[2])
+    glBegin(GL_QUADS)
+    glVertex2f(x + padding, y + padding)
+    glVertex2f(x + CELL_SIZE - padding, y + padding)
+    glVertex2f(x + CELL_SIZE - padding, y + CELL_SIZE - padding)
+    glVertex2f(x + padding, y + CELL_SIZE - padding)
+    glEnd()
 
